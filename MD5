@@ -1,6 +1,6 @@
-718b3c3974d06aab006d7cc5914d2009 *DESCRIPTION
-c967fc77e266353dd17ea42e3638d8ed *NAMESPACE
-766401e567bb674c5427588a6e2b7a14 *NEWS.md
+8946220e64314ab6715e028afb75a3cf *DESCRIPTION
+0c2ece99a6da2356ef79a228af46f5a2 *NAMESPACE
+a4849cff85444c099e09ddd1aa2384f6 *NEWS.md
 31f9f0383fb0d9c23e834e88ec756e32 *R/colorRampPalette_d.R
 1a7fcfcc368ee0bfa9071835d841db7f *R/colorRamp_d.R
 b384cc731563c63bac6dec807c54fd9a *R/data.R
@@ -37,8 +37,8 @@ dbde33889171895696ef254d58430aa1 *R/plot_bar_sd_sc.R
 a57195c5e594783430e52a40c9c26b89 *R/plot_histogram.R
 b99aace80cde15d16aeed4f271a383a8 *R/plot_point_sd.R
 02181ea8e5281bdefda45679f1a81091 *R/plot_point_sd_sc.R
-d83be8e3e5a4941f032b9516fbc803da *R/plot_qqline.R
-fc0f4417f224dcff8f0040089409acb2 *R/plot_qqmodel.R
+4477c497b4063803cc7cf301d3850b0f *R/plot_qqline.R
+8511a7b718e3d593f76efb6b714f02d3 *R/plot_qqmodel.R
 ee559b1f102e5100a8339a0d2fc9eae6 *R/plot_scatterbar_sd.R
 2a263f1fffee121dfbea86787d0b0273 *R/plot_scatterbar_sd_sc.R
 0d2d6216741aa6f47abf7025d0d4b11b *R/plot_scatterbox.R
@@ -49,7 +49,10 @@ ee559b1f102e5100a8339a0d2fc9eae6 *R/plot_scatterbar_sd.R
 1fad51c9ca24acf648d528ff1d1edf50 *R/plot_xy_NumGroup.R
 044f75f4ffce545f430949048203dfdb *R/posthoc_Levelwise.R
 7d09a27996bffdbc2cf1211c365d1d73 *R/posthoc_Pairwise.R
-3fbf161c5cce96d0729636d2d41c9f90 *R/posthoc_Trends.R
+5ecbe2068ecc3b784122b077fcfb5abe *R/posthoc_Trends.R
+e3fed86d031fd994b3fae8e7c16b24a4 *R/posthoc_Trends_Levelwise.R
+ba68e46125ff4cc652e436375bb88ec8 *R/posthoc_Trends_Pairwise.R
+8fc2dd0da4dbb89f1560c0c923c0a956 *R/posthoc_Trends_vsRef.R
 d0a377d747d3ae334f1fccf5b4424b26 *R/posthoc_vsRef.R
 34d840b0538941cca14669d211c06c5a *R/scale_color_grafify.R
 0c1034eed31fcde42b63b20ede1fa21c *R/scale_color_grafify2.R
@@ -79,6 +82,7 @@ ad693810154525cf5b0142ed9ea8d450 *man/data_cholesterol.Rd
 433670bd138ca5ed1ed6e3297e57f182 *man/data_doubling_time.Rd
 f8cba993debe4eb68f09ad2634db2175 *man/data_t_pdiff.Rd
 5c4d9953fab1f4c62535149b3259605d *man/data_t_pratio.Rd
+f18c247b74ccc687ba1903c93d419f5e *man/figures/all_graphsv2.0.0.jpg
 c397acfd6b176909fc1b78a18651ec19 *man/figures/grafify_palettesv020.jpg
 031b9338c7cb7e959a3cc854176f5301 *man/get_graf_colours.Rd
 0422fc8cdfb1fd238bd41668c733bc57 *man/graf_col_palette.Rd
@@ -113,8 +117,8 @@ d49eb3136a421dfe6548f22dc62788cd *man/plot_dotviolin.Rd
 922777eb73290cb07dd46e1075ad9ec3 *man/plot_histogram.Rd
 1948b0e5806e695e9a39f1fd9f7d2d1d *man/plot_point_sd.Rd
 8d64a43831e5109f0cfd2a457f178b64 *man/plot_point_sd_sc.Rd
-be1b6c667b6496ddec0361f60333492a *man/plot_qqline.Rd
-ff3aa5ef12ff8365e037e314aaa5265f *man/plot_qqmodel.Rd
+a47eaa89425bbb4d4b148691409a3620 *man/plot_qqline.Rd
+c1661a2beb666c4151c08ceac71ab199 *man/plot_qqmodel.Rd
 5218fc7394ea493859687210360862de *man/plot_scatterbar_sd.Rd
 385ef34bc398e185d439ddd7163c49cf *man/plot_scatterbar_sd_sc.Rd
 72bffd45b1fe6532999e127bdc078721 *man/plot_scatterbox.Rd
@@ -126,6 +130,9 @@ f387408138c5255d198c7f22374548b0 *man/plot_xy_NumGroup.Rd
 102307bc71c436e3953d4f9b2d89e0b3 *man/posthoc_Levelwise.Rd
 377a90622db1e4c5b2ab13b65701edd4 *man/posthoc_Pairwise.Rd
 8ea6256a11a224ea121449a481e296f2 *man/posthoc_Trends.Rd
+a07e93974e8a24130a2c159c8f9e92a7 *man/posthoc_Trends_Levelwise.Rd
+fe906328b2ead253d4224b69232700e3 *man/posthoc_Trends_Pairwise.Rd
+da4000bab7f1ce9cc2d4437a384e366f *man/posthoc_Trends_vsRef.Rd
 871a842bd847110fb42f83186ac0917c *man/posthoc_vsRef.Rd
 607c7932611c139e8399413d7505b487 *man/scale_color_grafify.Rd
 a654285c1f3921cbffe70fa706fe4b6b *man/scale_color_grafify2.Rd
@@ -143,7 +150,7 @@ a3fceeb93af486234d120ebe6bfb5ea0 *tests/testthat.R
 df1951ed8cbe17a48eca2cb241e35e37 *tests/testthat/test-make_2way_data.R
 faba0e3c56114900303378a704b0fe33 *tests/testthat/test-mixed_anova.R
 b0aec4c1b505a58de69b0c82aff8393d *tests/testthat/test-mixed_anova_slopes.R
-9c2a1ecad1338bd659f03e0081421b46 *tests/testthat/test-mixed_model.R
+c963aeb5938a20a9abca38c0a44f53be *tests/testthat/test-mixed_model.R
 77faeaacaec792636e0019d88518f907 *tests/testthat/test-plot_3d_scatterbar.R
 c3369ff3490c1e25bdc3f30059d2a28d *tests/testthat/test-plot_3d_scatterbox.R
 d519ea09a3e86c69f39f5bab4eb32bb9 *tests/testthat/test-plot_4d_scatterbar.R
@@ -162,7 +169,8 @@ b73638fc969e47677748866b03c56d7e *tests/testthat/test-plot_xy_CatGroup.R
 972e2743c716a74affd9abaec5ba4eb6 *tests/testthat/test-plot_xy_NumGroup.R
 9663644e64241031248531754ad51ba8 *tests/testthat/test-posthoc_Levelwise.R
 2a01ab4a7bda7ac078357385297aa2d0 *tests/testthat/test-posthoc_Pairwise.R
-b2fd60ee9dd1359a19a43c01df33ceff *tests/testthat/test-posthoc_vsRef.R
+137c96863535f5285b028fadf5af5b61 *tests/testthat/test-posthoc_Trends_Pairwise.R
+02f0c484451733663490f0b134861af9 *tests/testthat/test-posthoc_vsRef.R
 13a6fe80036004ed65df8980519599fd *tests/testthat/test-scale_colour_grafify.R
 f3ca99245b53b90fb0de36b40b3a1a95 *tests/testthat/test-simple_anova.R
 5acfcfa088732a1aa298d20b0940367a *tests/testthat/test-simple_model.R

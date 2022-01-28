@@ -7,11 +7,21 @@ output:
 
 Full reference to all functions available at [`grafify` GitHub pages](https://ashenoy-cmbi.github.io/grafify/index.html).
 
+# grafify v2.1.0
+
+## New features
+
+New experimental functions to compare slopes of linear regression via `posthoc_Trends_Pairwise`, `posthoc_Trends_Levelwise` and `posthoc_Trends_vsRef`.
+
+## Minor fixes
+
+Minor changes to `plot_qqmodel` and `plot_qqline` to fix some OS-specific errors. QQ plots by default will have `ok_orange` colour within symbols when only one level is present within `group`. Both functions now use `geom_qq` and `geom_qq_line` (instead of `stat_qq` and `stat_qq_line`) internally.
+
 # grafify v2.0.0
 
 This is a major update with some new features, bugfixes, and further cleaning up of code with consistent names of arguments in preparation for CRAN submission. Some previous code may not work because of renaming of some arguments for grouping variables in `plot_` functions. But older arguments are retained with deprecation warnings in most cases, so old code should largely work.
 
-## New features:
+## New features
 
   a. `plot_` functions have a new argument `ColSeq` (logical TRUE/FALSE) that picks colours sequentially from palette chosen by `ColPal` when `TRUE` (default). If set to `FALSE`, the most distant colours are chosen, as already implemented in `scale_..._grafify2` functions.
   b. Violin plots get a major face-lift with a box-whiskers plot on top of the violin. This gives a clearer picture of data and dispersion than the default quantile lines in `geom_violin`. They also get new arguments to set thickness of lines (`bvthick`) and transparency of boxplots (`b_alpha`).
