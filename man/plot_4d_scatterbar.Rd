@@ -12,15 +12,17 @@ plot_4d_scatterbar(
   shapes,
   symsize = 2.5,
   symthick = 1,
-  jitter = 0.1,
+  jitter = 0.2,
   ewid = 0.2,
   fontsize = 20,
   b_alpha = 1,
   s_alpha = 1,
-  ColPal = "all_grafify",
+  ColPal = c("okabe_ito", "all_grafify", "bright", "contrast", "dark", "fishy",
+    "kelly", "light", "muted", "pale", "r4", "safe", "vibrant"),
   ColRev = FALSE,
   ColSeq = TRUE,
-  TextXAngle = 0
+  TextXAngle = 0,
+  ...
 )
 }
 \arguments{
@@ -38,7 +40,7 @@ plot_4d_scatterbar(
 
 \item{symthick}{size of outline of symbol lines (\code{stroke = 1.0}), default set to 1.0}
 
-\item{jitter}{extent of jitter (scatter) of symbols, default is 0.1. Increase to reduce symbol overlap, set to 0 for aligned symbols.}
+\item{jitter}{extent of jitter (scatter) of symbols, default is 0.2. Increase to reduce symbol overlap, set to 0 for aligned symbols.}
 
 \item{ewid}{width of error bars, default set to 0.2.}
 
@@ -48,13 +50,15 @@ plot_4d_scatterbar(
 
 \item{s_alpha}{fractional opacity of symbols, default set to 1 (i.e. maximum opacity & zero transparency).}
 
-\item{ColPal}{grafify colour palette to apply, default "all_grafify"; alternatives: "okabe_ito", "bright", "pale", "vibrant", "contrast", "muted" "dark", "light".}
+\item{ColPal}{grafify colour palette to apply, default "okabe_ito"; see \code{\link{graf_palettes}} for available palettes.}
 
-\item{ColRev}{whether to reverse order of colour choice, default F (FALSE); can be set to T (TRUE).}
+\item{ColRev}{whether to reverse order of colour within the selected palette, default F (FALSE); can be set to T (TRUE).}
 
 \item{ColSeq}{logical TRUE or FALSE. Default TRUE for sequential colours from chosen palette. Set to FALSE for distant colours, which will be applied using  \code{scale_fill_grafify2}.}
 
 \item{TextXAngle}{orientation of text on X-axis; default 0 degrees. Change to 45 or 90 to remove overlapping text.}
+
+\item{...}{any additional arguments to pass to \code{ggplot2}\link{stat_summary} or \code{ggplot2}\link{geom_point}.}
 }
 \value{
 This function returns a \code{ggplot2} object of class "gg" and "ggplot".

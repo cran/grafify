@@ -2,12 +2,22 @@
 % Please edit documentation in R/scale_color_grafify.R
 \name{scale_color_grafify}
 \alias{scale_color_grafify}
-\title{Scale_colour colour scheme}
+\title{\code{scale_colour_} and \code{scale_fill_} functions}
 \usage{
-scale_color_grafify(palette = "all_grafify", reverse = FALSE, ...)
+scale_color_grafify(
+  palette = "okabe_ito",
+  discrete = TRUE,
+  ColSeq = TRUE,
+  reverse = FALSE,
+  ...
+)
 }
 \arguments{
-\item{palette}{Name of the colour scheme. Default set to \code{palette = "all_grafify"}. Provide names as above in quotes.}
+\item{palette}{Name of the \code{grafify} palettes from above, provide within quotes. Default discrete palette is \code{okabe_ito}. For quantitative palette, set \code{discrete = FALSE} (which will apply \code{blue_conti} unless another palette is chosen).}
+
+\item{discrete}{logical TRUE or FALSE. Default is TRUE for discrete colour palettes. Set to FALSE when plotting quantitative data to use quantitative palettes from above.}
+
+\item{ColSeq}{logical TRUE or FALSE. Default TRUE for sequential colours from chosen palette. Set to FALSE for distant colours.}
 
 \item{reverse}{Whether the colour order should be reversed.}
 
@@ -17,28 +27,79 @@ scale_color_grafify(palette = "all_grafify", reverse = FALSE, ...)
 ggplot scale_fill function for discrete colours.
 }
 \description{
-\code{grafify} internally includes colour-blind compatible schemes for fill and colour/color aesthetics.
-Note that these \strong{only} work for categorical variables. Use the brewer or viridis packages for numeric gradient scales.
+These let you apply \code{grafify} discrete or continuous palettes as fill or colour/color aesthetics to any \code{ggplot2} (\code{scale_color_} spelling is also accepted).
 }
 \details{
-The default for \code{scale_fill_grafify()}, \code{scale_colour_grafify()} or \code{scale_color_grafify()} is a list of 55 colours as part of \code{palette = "all_grafify"}.
+The default is \code{palette = "okabe_ito"} and \code{discrete = TRUE}. To apply quantitative colour/fill schemes set \code{discrete = FALSE} (if a palette is not chosen, \code{blue_conti} palette will be applied by default).
 
-Obviously, it is not recommended to use so many colours, but implementing this was easiest to prevent errors when using a lot of categorical variables.
+Categorical/discreet palettes (only allowed with \code{discrete = TRUE})
+\itemize{
+\item \code{okabe_ito}
+\item \code{bright}
+\item \code{contrast}
+\item \code{dark}
+\item \code{kelly}
+\item \code{light}
+\item \code{muted}
+\item \code{pale}
+\item \code{r4}
+\item \code{safe}
+\item \code{vibrant}
+}
 
-Colours available can be seen quickly with \code{\link{plot_grafify_palette}}. There are eight palettes with 5-10 colours each, which are recommended. These can be called by naming the colour scheme using \code{palette = } argument.
-Additional options include "okabe_ito", "vibrant, "bright", "pale", "muted", "dark", "light", and "contrast". These are taken from \href{https://personal.sron.nl/~pault/#sec:qualitative}{Paul Taul},  \href{https://mikemol.github.io/technique/colorblind/2018/02/11/color-safe-palette.html}{Mike Mol} and \href{https://jfly.uni-koeln.de/color/}{Okabe Ito}.
-\code{scale_fill_grafify2} and \code{scale_colour_grafify2} are identical except that when the number of categorical variables is fewer than the total number of colour shades in the palette (e.g. if you have 3 groups and the "okabe_ito" palette has 7 colours), these functions will pick the most 'distant' colours from the scheme than going sequentially. If you want colours assigned sequentially use \code{scale_fill_grafify} or \code{scale_colour_grafify}.
+By default, sequential colours from above palettes will be chosen. To choose the most distant colours set \code{ColSeq = TRUE}.
+
+Sequential quantitative palettes (only allowed with \code{discrete = FALSE}):
+\itemize{
+\item \code{grey_conti}
+\item \code{blue_conti}
+\item \code{yellow_conti}
+}
+
+Divergent quantitative palettes (only allowed with \code{discrete = FALSE}):
+\itemize{
+\item \code{OrBl_div}
+\item \code{PrGn_div}
+}
 }
 \examples{
-#add a colour scheme to a ggplot object
-ggplot(emmeans::neuralgia, aes(x = Treatment, y = Duration))+
-geom_point(aes(colour = Treatment, shape = Sex), size = 3, alpha = 0.9, 
-position = position_jitter(0.15)  )+
-scale_color_grafify(palette = "bright")+facet_wrap("Sex")
-
-#reverse colour order
-ggplot(emmeans::neuralgia, aes(x = Treatment, y = Duration))+
-geom_point(aes(colour = Treatment, shape = Sex), size = 3, alpha = 0.9, 
-position = position_jitter(0.1)  )+
-scale_color_grafify(palette = "bright", reverse = TRUE)+facet_wrap("Sex")
+#add a grafify fill scheme to ggplot
+ggplot(emmeans::neuralgia, aes(x = Treatment, 
+                               y = Duration))+
+  geom_boxplot(aes(fill = Treatment), 
+               alpha = .6)+
+  geom_point(aes(colour = Treatment,
+                 shape = Treatment), 
+             size = 3)+
+  scale_fill_grafify(palette = "bright")+
+  scale_colour_grafify(palette = "bright")+
+  facet_wrap("Sex")+
+  theme_classic()
+#distant colours `ColSeq = FALSE`   
+ggplot(emmeans::neuralgia, aes(x = Treatment, 
+                               y = Duration))+
+  geom_boxplot(aes(fill = Treatment), 
+               alpha = .6)+
+  geom_point(aes(colour = Treatment,
+                 shape = Treatment), 
+             size = 3)+
+  scale_fill_grafify(palette = "bright",
+                     ColSeq = FALSE)+
+  scale_colour_grafify(palette = "bright",
+                       ColSeq = FALSE)+
+  facet_wrap("Sex")+
+  theme_classic()
+#quantiative colour schemes with `discrete = FALSE`
+ggplot(mtcars, aes(x = disp,
+                   y = mpg))+
+  geom_point(aes(colour = cyl), 
+             size = 3)+
+  scale_colour_grafify(discrete = FALSE)
+#quantiative colour scheme
+ggplot(mtcars, aes(x = disp,
+                   y = mpg))+
+  geom_point(aes(colour = cyl), 
+             size = 3)+
+  scale_colour_grafify(palette = "yellow_conti")
+                       
 }

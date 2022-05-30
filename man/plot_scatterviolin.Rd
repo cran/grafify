@@ -10,15 +10,17 @@ plot_scatterviolin(
   ycol,
   symsize = 2.5,
   symthick = 1,
-  bwid = 0.1,
+  bwid = 0.2,
   bvthick = 1,
-  b_alpha = 1,
+  b_alpha = 0,
   s_alpha = 1,
   v_alpha = 1,
-  ColPal = "all_grafify",
+  ColPal = c("okabe_ito", "all_grafify", "bright", "contrast", "dark", "fishy",
+    "kelly", "light", "muted", "pale", "r4", "safe", "vibrant"),
   ColSeq = TRUE,
   ColRev = FALSE,
-  jitter = 0,
+  SingleColour = "NULL",
+  jitter = 0.2,
   trim = TRUE,
   scale = "width",
   TextXAngle = 0,
@@ -41,17 +43,19 @@ plot_scatterviolin(
 
 \item{bvthick}{thickness of both violin and boxplot lines; default 1.}
 
-\item{b_alpha}{fractional opacity of boxplots, default set to 1 (i.e. maximum opacity & zero transparency). For white boxplots inside violins, set \code{b_alpha = 0}.}
+\item{b_alpha}{fractional opacity of boxplots.  Default is set to 0, which results in white boxes inside violins. Change to any value >0 up to 1 for different levels of transparency.}
 
 \item{s_alpha}{fractional opacity of symbols, default set to 1 (i.e. maximum opacity & zero transparency). Set \code{s_alpha = 0} to not show scatter plot.}
 
 \item{v_alpha}{fractional opacity of violins, default set to 1 (i.e. maximum opacity & zero transparency).}
 
-\item{ColPal}{grafify colour palette to apply, default "all_grafify"; alternatives: "okabe_ito", "bright", "pale", "vibrant", "contrast", "muted" "dark", "light".}
+\item{ColPal}{grafify colour palette to apply, default "okabe_ito"; see \code{\link{graf_palettes}} for available palettes.}
 
 \item{ColSeq}{logical TRUE or FALSE. Default TRUE for sequential colours from chosen palette. Set to FALSE for distant colours, which will be applied using  \code{scale_fill_grafify2}.}
 
-\item{ColRev}{whether to reverse order of colour choice, default F (FALSE); can be set to T (TRUE).}
+\item{ColRev}{whether to reverse order of colour within the selected palette, default F (FALSE); can be set to T (TRUE).}
+
+\item{SingleColour}{a colour hexcode (starting with #), a number between 1-154, or names of colours from \code{grafify} colour palettes to fill along X-axis aesthetic. Accepts any colour other than "black"; use \code{grey_lin11}, which is almost black.}
 
 \item{jitter}{extent of jitter (scatter) of symbols, default is 0 (i.e. aligned symbols). To reduce symbol overlap, try 0.1-0.3 or higher.}
 
@@ -81,6 +85,8 @@ Colours can be changed using \code{ColPal}, \code{ColRev} or \code{ColSeq} argum
 \code{ColRev} (logical TRUE/FALSE) decides whether colours are chosen from first-to-last or last-to-first from within the chosen palette.
 \code{ColSeq} (logical TRUE/FALSE) decides whether colours are picked by respecting the order in the palette or the most distant ones using \code{\link[grDevices]{colorRampPalette}}.
 
+If there are many groups along the X axis and you prefer a single colour for the graph,use the \code{SingleColour} argument.
+
 The size of symbols can be adjusted using \code{symsize} set to 1 by default.
 Transparency of violins and symbols can be set independently with \code{v_alpha} and \code{s_alpha}, respectively.
 
@@ -94,16 +100,16 @@ plot_scatterviolin(data = data_t_pdiff,
 xcol = Condition, ycol = Mass, 
 symsize = 2, trim = FALSE)
 
-#with jitter
+#no symbols
 plot_scatterviolin(data = data_t_pdiff, 
 xcol = Condition, ycol = Mass, 
-symsize = 2, trim = FALSE, jitter = 0.1)
+s_alpha = 0,
+symsize = 2, trim = FALSE)
 
-#white boxplot and no symbols
+#single colour along X
 plot_scatterviolin(data = data_t_pdiff, 
 xcol = Condition, ycol = Mass, 
-b_alpha = 0, s_alpha = 0,
-symsize = 2, trim = FALSE, jitter = 0.1)
-
-
+SingleColour = "pale_blue",
+s_alpha = 0,
+symsize = 2, trim = FALSE)
 }

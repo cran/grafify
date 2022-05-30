@@ -1,18 +1,37 @@
-#' Scale_colour colour scheme
+#' `scale_colour_` and `scale_fill_` functions
 #'
-#' `grafify` internally includes colour-blind compatible schemes for fill and colour/color aesthetics.
-#' Note that these **only** work for categorical variables. Use the brewer or viridis packages for numeric gradient scales.
-#'
-#' The default for \code{scale_fill_grafify()}, \code{scale_colour_grafify()} or \code{scale_color_grafify()} is a list of 55 colours as part of \code{palette = "all_grafify"}.
-#'
-#' Obviously, it is not recommended to use so many colours, but implementing this was easiest to prevent errors when using a lot of categorical variables.
+#' These let you apply `grafify` discrete or continuous palettes as fill or colour/color aesthetics to any `ggplot2` (`scale_color_` spelling is also accepted).
 #' 
-#' Colours available can be seen quickly with \code{\link{plot_grafify_palette}}. There are eight palettes with 5-10 colours each, which are recommended. These can be called by naming the colour scheme using \code{palette = } argument.
-#' Additional options include "okabe_ito", "vibrant, "bright", "pale", "muted", "dark", "light", and "contrast". These are taken from [Paul Taul](https://personal.sron.nl/~pault/#sec:qualitative),  [Mike Mol](https://mikemol.github.io/technique/colorblind/2018/02/11/color-safe-palette.html) and [Okabe Ito](https://jfly.uni-koeln.de/color/).
-#' `scale_fill_grafify2` and `scale_colour_grafify2` are identical except that when the number of categorical variables is fewer than the total number of colour shades in the palette (e.g. if you have 3 groups and the "okabe_ito" palette has 7 colours), these functions will pick the most 'distant' colours from the scheme than going sequentially. If you want colours assigned sequentially use `scale_fill_grafify` or `scale_colour_grafify`.
-#'
-#' @param palette Name of the colour scheme. Default set to \code{palette = "all_grafify"}. Provide names as above in quotes.
+#' The default is `palette = "okabe_ito"` and `discrete = TRUE`. To apply quantitative colour/fill schemes set `discrete = FALSE` (if a palette is not chosen, `blue_conti` palette will be applied by default).
+#'  
+#' Categorical/discreet palettes (only allowed with `discrete = TRUE`)
+#' - `okabe_ito`
+#' - `bright`
+#' - `contrast`
+#' - `dark`
+#' - `kelly`
+#' - `light`
+#' - `muted`
+#' - `pale`
+#' - `r4`
+#' - `safe`
+#' - `vibrant`
+#' 
+#' By default, sequential colours from above palettes will be chosen. To choose the most distant colours set `ColSeq = TRUE`.
+#' 
+#' Sequential quantitative palettes (only allowed with `discrete = FALSE`):
+#' - `grey_conti`
+#' - `blue_conti`
+#' - `yellow_conti`
+#' 
+#' Divergent quantitative palettes (only allowed with `discrete = FALSE`):
+#' - `OrBl_div`
+#' - `PrGn_div`
+#' 
+#' @param palette Name of the `grafify` palettes from above, provide within quotes. Default discrete palette is `okabe_ito`. For quantitative palette, set `discrete = FALSE` (which will apply `blue_conti` unless another palette is chosen).
 #' @param reverse Whether the colour order should be reversed.
+#' @param ColSeq logical TRUE or FALSE. Default TRUE for sequential colours from chosen palette. Set to FALSE for distant colours.
+#' @param discrete logical TRUE or FALSE. Default is TRUE for discrete colour palettes. Set to FALSE when plotting quantitative data to use quantitative palettes from above.
 #' @param ... Additional parameters for `scale_fill` or `scale_colour`.
 #'
 #' @return ggplot scale_fill function for discrete colours.
@@ -20,22 +39,74 @@
 #' @import ggplot2
 #'
 #' @examples
-#' #add a colour scheme to a ggplot object
-#' ggplot(emmeans::neuralgia, aes(x = Treatment, y = Duration))+
-#' geom_point(aes(colour = Treatment, shape = Sex), size = 3, alpha = 0.9, 
-#' position = position_jitter(0.15)  )+
-#' scale_color_grafify(palette = "bright")+facet_wrap("Sex")
-#' 
-#' #reverse colour order
-#' ggplot(emmeans::neuralgia, aes(x = Treatment, y = Duration))+
-#' geom_point(aes(colour = Treatment, shape = Sex), size = 3, alpha = 0.9, 
-#' position = position_jitter(0.1)  )+
-#' scale_color_grafify(palette = "bright", reverse = TRUE)+facet_wrap("Sex")
-
-
-scale_color_grafify <- function(palette = "all_grafify", reverse = FALSE, ...){
-  pal <- graf_col_palette(palette = palette, reverse = reverse)
-    discrete_scale("colour", paste0("graf_", palette), palette = pal, ...)
+#' #add a grafify fill scheme to ggplot
+#' ggplot(emmeans::neuralgia, aes(x = Treatment, 
+#'                                y = Duration))+
+#'   geom_boxplot(aes(fill = Treatment), 
+#'                alpha = .6)+
+#'   geom_point(aes(colour = Treatment,
+#'                  shape = Treatment), 
+#'              size = 3)+
+#'   scale_fill_grafify(palette = "bright")+
+#'   scale_colour_grafify(palette = "bright")+
+#'   facet_wrap("Sex")+
+#'   theme_classic()
+#' #distant colours `ColSeq = FALSE`   
+#' ggplot(emmeans::neuralgia, aes(x = Treatment, 
+#'                                y = Duration))+
+#'   geom_boxplot(aes(fill = Treatment), 
+#'                alpha = .6)+
+#'   geom_point(aes(colour = Treatment,
+#'                  shape = Treatment), 
+#'              size = 3)+
+#'   scale_fill_grafify(palette = "bright",
+#'                      ColSeq = FALSE)+
+#'   scale_colour_grafify(palette = "bright",
+#'                        ColSeq = FALSE)+
+#'   facet_wrap("Sex")+
+#'   theme_classic()
+#' #quantiative colour schemes with `discrete = FALSE`
+#' ggplot(mtcars, aes(x = disp,
+#'                    y = mpg))+
+#'   geom_point(aes(colour = cyl), 
+#'              size = 3)+
+#'   scale_colour_grafify(discrete = FALSE)
+#' #quantiative colour scheme
+#' ggplot(mtcars, aes(x = disp,
+#'                    y = mpg))+
+#'   geom_point(aes(colour = cyl), 
+#'              size = 3)+
+#'   scale_colour_grafify(palette = "yellow_conti")
+#'                        
+scale_color_grafify <- function(palette = "okabe_ito", discrete = TRUE, ColSeq = TRUE, reverse = FALSE, ...){
+  if (palette == "okabe_ito" & discrete == FALSE) {palette <- "blue_conti"}
+  if (discrete == FALSE) {palette <- "blue_conti"}
+  if (palette %in% c("blue_conti", "yellow_conti", "grey_conti", "PrGn_div", "OrBl_div")) {discrete <- FALSE}
+  if (discrete == FALSE) {
+    palette <- match.arg(palette, 
+                         choices = c("blue_conti", "yellow_conti", "grey_conti", "PrGn_div", "OrBl_div"))
+    if (palette %in% c("okabe_ito", "all_grafify", "bright",  "contrast",  "dark",  "fishy",  "kelly",  "light",  "muted",  "pale",  "r4",  "safe",  "vibrant")) {
+      stop("Discrete palette chosen with `discrete = FALSE`.")
+    } else {
+      pal <- graf_col_palette(palette = palette, 
+                              reverse = reverse)
+      scale_color_gradientn(colours = pal(255), ...)
+    } 
+  } else {
+    palette <- match.arg(palette, 
+                         choices = c("okabe_ito", "all_grafify", "bright",  "contrast",  "dark",  "fishy",  "kelly",  "light",  "muted",  "pale",  "r4",  "safe",  "vibrant"))
+    if (palette %in% c("blue_conti", "yellow_conti", "grey_conti", "PrGn_div", "OrBl_div")) {
+      stop("Quantitative palette chosen `discrete=TRUE`")
+    } else {
+      if (ColSeq) {
+        pal <- graf_col_palette(palette = palette, 
+                                reverse = reverse)
+      } else {
+        pal <- graf_col_palette_default(palette = palette, 
+                                        reverse = reverse)
+      }
+      discrete_scale("color", paste0("graf_", palette), 
+                     palette = pal, ...)
+    } 
+  }
 }
-
-

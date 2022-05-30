@@ -12,14 +12,17 @@ plot_3d_scatterbar(
   ewid = 0.2,
   symsize = 2.5,
   symthick = 1,
-  jitter = 0.1,
+  jitter = 0.2,
   fontsize = 20,
   b_alpha = 1,
   s_alpha = 1,
   ColSeq = TRUE,
-  ColPal = "all_grafify",
+  ColPal = c("okabe_ito", "all_grafify", "bright", "contrast", "dark", "fishy",
+    "kelly", "light", "muted", "pale", "r4", "safe", "vibrant"),
   ColRev = FALSE,
-  TextXAngle = 0
+  SingleColour = "NULL",
+  TextXAngle = 0,
+  ...
 )
 }
 \arguments{
@@ -37,7 +40,7 @@ plot_3d_scatterbar(
 
 \item{symthick}{size of outline of symbol lines (\code{stroke = 1.5}), default set to 1.5}
 
-\item{jitter}{extent of jitter (scatter) of symbols, default is 0.1. Increase to reduce symbol overlap, set to 0 for aligned symbols.}
+\item{jitter}{extent of jitter (scatter) of symbols, default is 0.2. Increase to reduce symbol overlap, set to 0 for aligned symbols.}
 
 \item{fontsize}{parameter of \code{base_size} of fonts in \code{theme_classic}, default set to size 20.}
 
@@ -47,11 +50,15 @@ plot_3d_scatterbar(
 
 \item{ColSeq}{logical TRUE or FALSE. Default TRUE for sequential colours from chosen palette. Set to FALSE for distant colours, which will be applied using  \code{scale_fill_grafify2}.}
 
-\item{ColPal}{grafify colour palette to apply, default "all_grafify"; alternatives: "okabe_ito", "bright", "pale", "vibrant", "contrast", "muted" "dark", "light".}
+\item{ColPal}{grafify colour palette to apply, default "okabe_ito"; see \code{\link{graf_palettes}} for available palettes.}
 
-\item{ColRev}{whether to reverse order of colour choice, default F (FALSE); can be set to T (TRUE).}
+\item{ColRev}{whether to reverse order of colour within the selected palette, default F (FALSE); can be set to T (TRUE).}
+
+\item{SingleColour}{a colour hexcode (starting with #), a number between 1-154, or names of colours from \code{grafify} colour palettes to fill along X-axis aesthetic. Accepts any colour other than "black"; use \code{grey_lin11}, which is almost black.}
 
 \item{TextXAngle}{orientation of text on X-axis; default 0 degrees. Change to 45 or 90 to remove overlapping text.}
+
+\item{...}{any additional arguments to pass to \code{ggplot2}\link{geom_boxplot} or \code{ggplot2}\link{geom_point}.}
 }
 \value{
 This function returns a \code{ggplot2} object of class "gg" and "ggplot".
@@ -81,10 +88,17 @@ All four functions can be expanded further, for example with \code{\link[ggplot2
 }
 \examples{
 #3d version for 1-way data with blocking
-plot_3d_scatterbox(data = data_1w_death, 
-xcol = Genotype, ycol = Death, shapes = Experiment)
+plot_3d_scatterbar(data = data_1w_death, 
+xcol = Genotype, ycol = Death, 
+shapes = Experiment)
 #compare above graph to
-plot_scatterbox(data = data_1w_death, xcol = Genotype, ycol = Death)
+plot_scatterbar_sd(data = data_1w_death, 
+xcol = Genotype, ycol = Death)
+#single colour
+plot_3d_scatterbar(data = data_1w_death, 
+xcol = Genotype, ycol = Death,
+shapes = Experiment,
+SingleColour = "pale_grey")
 
 #4d version for 2-way data with blocking
 plot_4d_scatterbox(data = data_2w_Tdeath, 

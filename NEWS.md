@@ -1,11 +1,43 @@
 ---
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 # Release notes:
 
 Full reference to all functions available at [`grafify` GitHub pages](https://ashenoy-cmbi.github.io/grafify/index.html).
+
+# grafify v2.3.0
+
+The main motivation behind this update was to simplify the package by reducing the number of exported functions. So some features that were previously in separate functions have been made available more easily via an additional argument to existing functions (e.g. single colour function (`plot_..._sc`) now offered in respective `plot_` function with a new argument (see below). This has uncluttered the namespace of `grafify`. Most of the other additions are related to colour schemes.
+
+## Major additions
+
+1. A new `SingleColour` argument has been added to two-variables `plot_` functions to generate graphs with a single colour along the X-axis aesthetic. This means the 8 `plot_..._sc` functions introduced in v1.5.0 are deprecated, but this feature is still retained in existing `plot_` functions. This option also added to `plot_3d_` functions for plots of one-way ANOVA data.
+
+2. Four new colourblind-friendly categorical colour schemes (chosen from [cols4all](https://github.com/mtennekes/cols4all) package):
+
+- `fishy`, `kelly`, `r4`, `safe` 
+
+3. Four new quantitative schemes for continuous or divergent colours.
+
+- sequential/continuous: `blue_conti`, `grey_conti` 
+- divergent: `OrBl_div`, `PrGn_div`
+
+All schemes also available through `scale_fill..` and `scale_colour_...` calls to be used on any `ggplot2` object.
+
+4. `scale_fill_grafify` and `scale_colour_grafify` (or `scale_color_grafify`) have been rewritten. These have two new arguments that offer features previously in `scale_fill_grafify2`/`scale_colour_grafify2`/ `scale_color_grafify_c` and `scale_fill_grafify_c`/`scale_colour_grafify_c`/ `scale_color_grafify_C` scale functions. These 6 functions are now deprecated to reduce exported namespace. 
+
+The new arguments are `discrete` (logical T/F) to select discrete or continuous palettes, and `ColSeq` (logical T/F) to pick sequential or distant colours from a chosen palette.
+
+## Minor changes & bug fixes
+
+1. Fixed the error in legend title in one-way ANOVA plots with `plot_3d_` that incorrectly referred to `xcol` and `shapes` arguments. 
+2. Fixed the error that led to depiction of different shapes in `plot_3d_scatterviolin` as compared to the other two `plot_3d_` functions.
+2. `posthoc_Trends...` functions rewritten with `stats::model.frame()` to get model data frame as this is a more flexible method.
+3. Order of colours in `light`, `bright` and `muted` schemes changed slightly for better separation of colours when next to each other.
+4. The `jitter` setting in `plot_scaltter_` is set to `0.2` so the graph as plotted with jitter by default.  
+5. The default colour scheme for all graphs is now `okabe_ito` (the `all_grafify` palette is  was just a concatenation of all palettes without real basis in good visualisation). Use one of the other palettes if more than 8 colours are needed (e.g. `kelly`, which has 20 discreet colours).
 
 # grafify v2.2.0
 
