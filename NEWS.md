@@ -5,7 +5,42 @@ output:
 ---
 # Release notes:
 
-Full reference to all functions available at [`grafify` GitHub pages](https://ashenoy-cmbi.github.io/grafify/index.html).
+Full reference to all functions available at [`grafify` GitHub pages](https://ashenoy-cmbi.github.io/grafify/index.html). There are also updates within all `plot_` functions, which are a `facet` argument, and log-transformations with axis tick marks.
+
+# grafify v3.0.0
+
+## Major updates 
+
+This is a major update for `grafify`, which now provides wrappers for basic generalised additive models (`gam`) through the [`mgcv` package](https://CRAN.R-project.org/package=mgcv). There are a more `plot_` functions, a `grafify` theme for `ggplot` objects, and simple data wrangling before plotting.  
+
+## Major additions
+
+1. Fit generalised additive models (gam) and get ANOVA tables with two new functions: `ga_model` and `ga_anova`. These are mainly for time-series analyses or where an assumption of linear relationship between predictor and outcomes is absent straight lines are not appropriate. Factor-wise smooths are fit with the `by` argument in `mgcv`, without or with a random factor. Random factors are also allowed with smooth  `re` smooth. See documentation for `mgcv` [smooths](https://noamross.github.io/gams-in-r-course/). Model diagnostics can be done with `plot_qq_gam` and `plot_qq_model`. Example data included as  `data_zooplankton` is from [Lathro RC, 2000](http://dx.doi.org/10.6073/pasta/ec3d0186753985147d4f283252388e05). 
+
+2. All `plot_` functions now have two major updates:
+
+a. Log-transformation of axes: Axes can be transformed with `log10` or `log2` with `LogYTrans` and `LogXTrans` arguments. X axis transformations are only available for `plot_xy_CatGroup` and `plot_xy_NumGroup`. With `log10` transformation, log-ticks will also appear. Default axes limits and labels should work in most cases, but if needed, three additional arguments are available: `LogYBreaks`, `LogYLimits` and `LogYLabels` (and respective ones for the X axis). 
+b. `facet` argument to add another variable to created faceted plots with the `facet_wrap` layer in `ggplot2`. A related argument `facet_scales` can be used to set Y or X axis scales on faceted panels.
+
+3. New plot functions:
+
+a. `plot_befafter_box` is a new before-after plot function that includes a box and whisker plot to show data distribution in addition to lines joining matched data. In addition, both `plot_befafter_colour` and `plot_befafter_shapes` offer a box and whiskers summary of data.
+
+b. `plot_lm_predict` and `plot_gam_predict` can be used to plot observed (raw) data and predicted data from fitted linear models.
+
+c. `plot_logscales` is a function to easily perform "log10" or "log2" transformation on X or Y axes of any `ggplot2` object along with log-ticks.
+
+4. Table manipulations:
+
+a. `table_x_reorder` is a function to reorder levels within a categorical variable. This uses `factor` from base R `stats` package to convert a column into a factor and reorders it based on a user-provided vector of group names.
+
+b. `table_summary` is a wrapper around `aggregate` (base R) function, which gives mean, median, SD, and counts grouped by one or more variables. 
+
+5. A `grafify` theme for `ggplot2`: `theme_grafify` is a modification of `theme_classic` for making publication-ready `grafify`-like graphs easily when using `ggplot2`.
+
+## Minor changes
+
+Much of the code has been edited and cleaned up. Among the main change is dropping unnecessary double curly brackets `{{ }}` within `plot_` wrappers.
 
 # grafify v2.3.0
 
@@ -151,6 +186,11 @@ Bug fixes in `mixed_model` and `simple_model` which now correctly lists the data
 1. the main difference from v0.1.0 is that all `plot_` functions apply the `all_grafify` colour scheme by default (see `plot_` vignettes on how to change colours)
 2. two new types of graphs are possible with two quantitative X-Y plots with a third variable that is either numeric (`plot_xy_NumGroup`) or categorical (`plot_xy_CatGroup`).
 3. there are two new continuous colour schemes (`scale_fill_grafify_c` and `scale_colour_grafify_c`), based on [Paul Tol's variant](https://personal.sron.nl/~pault/#sec:sequential) of YlOrBl scheme.
+
+### Minor changes
+
+1. `plot_befafter...` functions have a new logical TRUE/FALSE argument called `boxplot` to additionally show a box and whisker plot to show data distribution.
+
 
 # grafify v0.1.0
 
