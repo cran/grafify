@@ -10,7 +10,7 @@
 #'
 #' Bars depict means using \code{\link[ggplot2]{stat_summary}} with \code{geom = "bar", fun = "mean"} , and bar width is set to 0.7 (cannot be changed). Error bar width can be changed with the `ewid` argument.
 #' 
-#' Boxplot geometry uses \code{\link[ggplot2]{geom_boxplot}} with \code{position = position_dodge(width = 0.9), width = 0.6}. The thick line within the boxplot depicts the median, the box the IQR (interquantile range) and the whiskers show 1.5*IQR.
+#' Boxplot geometry uses \code{\link[ggplot2]{geom_boxplot}} with \code{position = position_dodge(width = 0.9), width = 0.6}. The thick line within the boxplot depicts the median, the box the IQR (interquartile range) and the whiskers show 1.5*IQR.
 #' 
 #' In 4d versions, the two grouping variables (i.e. `xcol` and either `boxes` or `bars`) are passed to ggplot aesthetics through \code{group = interaction{ xcol, shapes}}. 
 #'  
@@ -34,6 +34,7 @@
 #' @param bwid width of boxes; default 0.3.
 #' @param vadjust number to adjust the smooth/wigglyness of violin plot (default set to 1).
 #' @param jitter extent of jitter (scatter) of symbols, default is 0.1. Increase to reduce symbol overlap, set to 0 for aligned symbols.  
+#' @param group_wid space between the factors along X-axis, i.e., dodge width. Default `group_wid = 0.8` (range 0-1), which can be set to 0 if you'd like the two plotted as `position = position_identity()`.
 #' @param TextXAngle orientation of text on X-axis; default 0 degrees. Change to 45 or 90 to remove overlapping text.
 #' @param scale set to "area" by default, can be changed to "count" or "width".
 #' @param trim set whether tips of violin plot should be trimmed at high/low data. Default \code{trim = T}, can be changed to F.
@@ -44,7 +45,9 @@
 #' @param facet_scales whether or not to fix scales on X & Y axes for all facet facet graphs. Can be `fixed` (default), `free`, `free_y` or `free_x` (for Y and X axis one at a time, respectively).
 #' @param fontsize parameter of \code{base_size} of fonts in \code{theme_classic}, default set to size 20.
 #' @param symthick size (in 'pt' units) of outline of symbol lines (\code{stroke}), default = `fontsize`/22.
-#' @param bvthick thickness (in 'pt' units) of both violin and boxplot lines; default = `fontsize`/22.
+#' @param bthick thickness (in 'pt' units) of boxplots; default = `fontsize`/22.
+#' @param vthick thickness (in 'pt' units) of violins; default = `fontsize`/22.
+#' @param bvthick thickness (in 'pt' units) of both violins and boxplots; default = `fontsize`/22.
 #' @param ColPal grafify colour palette to apply, default "okabe_ito"; see \code{\link{graf_palettes}} for available palettes.
 #' @param ColRev whether to reverse order of colour within the selected palette, default F (FALSE); can be set to T (TRUE).
 #' @param ColSeq logical TRUE or FALSE. Default TRUE for sequential colours from chosen palette. Set to FALSE for distant colours, which will be applied using  \code{scale_fill_grafify2}.
@@ -69,74 +72,64 @@
 #' boxes = Time, 
 #' shapes = Experiment)
 #' 
-plot_4d_scatterviolin <- function(data, xcol, ycol, boxes, shapes, facet, symsize = 3, s_alpha = 0.8, v_alpha = 1, b_alpha = 0, bwid = 0.3, vadjust = 1, jitter = 0.1, TextXAngle = 0, scale = "width", trim = TRUE, LogYTrans, LogYBreaks = waiver(), LogYLabels = waiver(), LogYLimits = NULL, facet_scales = "fixed", fontsize = 20, symthick, bvthick, ColPal = c("okabe_ito", "all_grafify", "bright",  "contrast",  "dark",  "fishy",  "kelly",  "light",  "muted",  "pale",  "r4",  "safe",  "vibrant"), ColSeq = TRUE, ColRev = FALSE, ...){
+#' 
+plot_4d_scatterviolin <- function(data, xcol, ycol, boxes, shapes, facet, symsize = 3, s_alpha = 0.8, v_alpha = 1, b_alpha = 0, bwid = 0.3, vadjust = 1, jitter = 0.1, TextXAngle = 0, scale = "width", trim = TRUE, LogYTrans, LogYBreaks = waiver(), LogYLabels = waiver(), LogYLimits = NULL, facet_scales = "fixed", fontsize = 20, group_wid = 0.8, symthick, bthick, vthick, bvthick, ColPal = c("okabe_ito", "all_grafify", "bright",  "contrast",  "dark",  "fishy",  "kelly",  "light",  "muted",  "pale",  "r4",  "safe",  "vibrant"), ColSeq = TRUE, ColRev = FALSE, ...){
   ColPal <- match.arg(ColPal)
-  if (missing(bvthick)) {bvthick = fontsize/22}
+  if (!missing(bvthick)) {
+    bthick = bvthick
+    vthick = bvthick}
+  if (missing(bthick)) {bthick = fontsize/22}
+  if (missing(vthick)) {vthick = fontsize/22}
   if (missing(symthick)) {symthick = fontsize/22}
+  suppressWarnings(P <- ggplot2::ggplot(data, aes(x = factor({{ xcol }}),
+                                                  y = {{ ycol }},
+                                                  group = interaction(factor({{ boxes }}),
+                                                                      factor({{ xcol }}))))+
+                     geom_violin(scale = scale, 
+                                 alpha = v_alpha, 
+                                 size = vthick,
+                                 colour = "black",
+                                 trim = trim,
+                                 aes(fill = factor({{ boxes }})), 
+                                 adjust = vadjust,
+                                 position = position_dodge(width = group_wid),
+                                 ...)+
+                     scale_shape_manual(values = 0:25)+
+                     labs(fill = enquo(boxes),
+                          x = enquo(xcol),
+                          shape = enquo(shapes)))
   if (b_alpha == 0){
-    P <- ggplot2::ggplot(data, aes(x = factor({{ xcol }}),
-                                   y = {{ ycol }},
-                                   group = interaction(factor({{ boxes }}),
-                                                       factor({{ xcol }}))))+
-      geom_violin(scale = scale, 
-                  alpha = v_alpha, 
-                  size = bvthick,
-                  colour = "black",
-                  trim = trim,
-                  aes(fill = factor({{ boxes }})), 
-                  adjust = vadjust,
-                  position = position_dodge(width = 0.8),
-                  ...)+
+    P <- P + 
       geom_boxplot(width = bwid,
                    fill = "white",
-                   size = bvthick,
+                   size = bthick,
                    aes(fill = factor({{ boxes }})),
                    outlier.alpha = 0,
-                   position = position_dodge(width = 0.8),
+                   position = position_dodge(width = group_wid),
                    ...)+
       geom_point(size = symsize, 
                  alpha = s_alpha, 
                  stroke = symthick, 
                  colour = "black",
                  position = position_jitterdodge(jitter.width = jitter,
-                                                 dodge.width = 0.8),
-                 aes(shape = factor({{ shapes }})))+
-      scale_shape_manual(values = 0:25)+
-      labs(fill = enquo(boxes),
-           x = enquo(xcol),
-           shape = enquo(shapes))
+                                                 dodge.width = group_wid),
+                 aes(shape = factor({{ shapes }})))
   } else {
-    P <- ggplot2::ggplot(data, aes(x = factor({{ xcol }}),
-                                   y = {{ ycol }},
-                                   group = interaction(factor({{ boxes }}),
-                                                       factor({{ xcol }}))))+
-      geom_violin(scale = scale, 
-                  alpha = v_alpha, 
-                  size = bvthick,
-                  colour = "black",
-                  trim = trim,
-                  aes(fill = factor({{ boxes }})), 
-                  adjust = vadjust,
-                  position = position_dodge(width = 0.8),
-                  ...)+
+    P <- P +
       geom_boxplot(width = bwid, 
                    alpha = b_alpha, 
-                   size = bvthick,
+                   size = bthick,
                    aes(fill = factor({{ boxes }})), 
                    outlier.alpha = 0,
-                   position = position_dodge(width = 0.8),
+                   position = position_dodge(width = group_wid),
                    ...)+
       geom_point(size = symsize, 
                  alpha = s_alpha, 
                  stroke = symthick, 
                  colour = "black",
                  position = position_jitterdodge(jitter.width = jitter,
-                                                 dodge.width = 0.8),
-                 aes(shape = factor({{ shapes }})))+
-      scale_shape_manual(values = 0:25)+
-      labs(fill = enquo(boxes),
-           x = enquo(xcol),
-           shape = enquo(shapes))
+                                                 dodge.width = group_wid),
+                 aes(shape = factor({{ shapes }})))
   }
   if(!missing(facet)) {
     P <- P + facet_wrap(vars({{ facet }}), 
@@ -156,9 +149,9 @@ plot_4d_scatterviolin <- function(data, xcol, ycol, boxes, shapes, facet, symsiz
                            ...)+
         annotation_logticks(sides = "l", 
                             outside = TRUE,
-                            base = 10,
-                            long = unit(0.2, "cm"), 
-                            mid = unit(0.1, "cm"),
+                            base = 10, color = "grey20",
+                            long = unit(7*fontsize/22, "pt"), size = unit(fontsize/22, "pt"),# 
+                            short = unit(4*fontsize/22, "pt"), mid = unit(4*fontsize/22, "pt"),#
                             ...)+ 
         coord_cartesian(clip = "off", ...)
     }
@@ -171,8 +164,7 @@ plot_4d_scatterviolin <- function(data, xcol, ycol, boxes, shapes, facet, symsiz
                            ...)}
   }
   P <- P +
-    theme_classic(base_size = fontsize)+
-    theme(strip.background = element_blank())+
+    theme_grafify(base_size = fontsize)+
     guides(x = guide_axis(angle = TextXAngle),
            fill = guide_legend(order = 1),
            shape = guide_legend(order = 2))+
@@ -181,3 +173,4 @@ plot_4d_scatterviolin <- function(data, xcol, ycol, boxes, shapes, facet, symsiz
                        ColSeq = ColSeq)
   P
 }
+

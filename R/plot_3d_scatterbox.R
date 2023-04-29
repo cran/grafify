@@ -10,7 +10,7 @@
 #'
 #' Bars depict means using \code{\link[ggplot2]{stat_summary}} with \code{geom = "bar", fun = "mean"} , and bar width is set to 0.7 (cannot be changed). Error bar width can be changed with the `ewid` argument.
 #' 
-#' Boxplot geometry uses \code{\link[ggplot2]{geom_boxplot}} with \code{position = position_dodge(width = 0.9), width = 0.6}. The thick line within the boxplot depicts the median, the box the IQR (interquantile range) and the whiskers show 1.5*IQR.
+#' Boxplot geometry uses \code{\link[ggplot2]{geom_boxplot}} with \code{position = position_dodge(width = 0.9), width = 0.6}. The thick line within the boxplot depicts the median, the box the IQR (interquartile range) and the whiskers show 1.5*IQR.
 #' 
 #' In 4d versions, the two grouping variables (i.e. `xcol` and either `boxes` or `bars`) are passed to ggplot aesthetics through \code{group = interaction{ xcol, shapes}}. 
 #'  
@@ -82,7 +82,7 @@ plot_3d_scatterbox <- function(data, xcol, ycol, shapes, facet, symsize = 3, s_a
   ColPal <- match.arg(ColPal)
   if (missing(bthick)) {bthick = fontsize/22}
   if (missing(symthick)) {symthick = fontsize/22}
-  P <- ggplot2::ggplot(data, 
+  suppressWarnings(P <- ggplot2::ggplot(data, 
                        aes(x = factor({{ xcol }}),
                            y = {{ ycol }},
                            group = factor({{ xcol }})))+
@@ -102,7 +102,7 @@ plot_3d_scatterbox <- function(data, xcol, ycol, shapes, facet, symsize = 3, s_a
     scale_shape_manual(values = 0:25)+
     labs(x = enquo(xcol),
          fill = enquo(xcol),
-         shape = enquo(shapes))
+         shape = enquo(shapes)))
   if(!missing(facet)) {
     P <- P + facet_wrap(vars({{ facet }}), 
                         scales = facet_scales, 
@@ -121,9 +121,9 @@ plot_3d_scatterbox <- function(data, xcol, ycol, shapes, facet, symsize = 3, s_a
                            ...)+
         annotation_logticks(sides = "l", 
                             outside = TRUE,
-                            base = 10,
-                            long = unit(0.2, "cm"), 
-                            mid = unit(0.1, "cm"),
+                            base = 10, color = "grey20",
+                            long = unit(7*fontsize/22, "pt"), size = unit(fontsize/22, "pt"),# 
+                            short = unit(4*fontsize/22, "pt"), mid = unit(4*fontsize/22, "pt"),#
                             ...)+ 
         coord_cartesian(clip = "off", ...)
     }
@@ -161,7 +161,6 @@ plot_3d_scatterbox <- function(data, xcol, ycol, shapes, facet, symsize = 3, s_a
     labs(x = enquo(xcol),
          fill = enquo(xcol),
          shape = enquo(shapes))+
-    theme_classic(base_size = fontsize)+
-    theme(strip.background = element_blank())
+    theme_grafify(base_size = fontsize)
   P  
 }

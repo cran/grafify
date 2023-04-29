@@ -15,7 +15,7 @@ plot_4d_scatterbar(
   symsize = 3,
   s_alpha = 0.8,
   b_alpha = 1,
-  bwid = 0.5,
+  bwid = 0.7,
   jitter = 0.1,
   ewid = 0.2,
   TextXAngle = 0,
@@ -25,6 +25,7 @@ plot_4d_scatterbar(
   LogYLimits = NULL,
   facet_scales = "fixed",
   fontsize = 20,
+  group_wid = 0.8,
   symthick,
   bthick,
   ColPal = c("okabe_ito", "all_grafify", "bright", "contrast", "dark", "fishy", "kelly",
@@ -55,7 +56,7 @@ plot_4d_scatterbar(
 
 \item{b_alpha}{fractional opacity of boxes.  Default is set to 0, which results in white boxes inside violins. Change to any value >0 up to 1 for different levels of transparency.}
 
-\item{bwid}{width of boxes; default 0.5.}
+\item{bwid}{width of boxes; default 0.7.}
 
 \item{jitter}{extent of jitter (scatter) of symbols, default is 0.1. Increase to reduce symbol overlap, set to 0 for aligned symbols.}
 
@@ -74,6 +75,8 @@ plot_4d_scatterbar(
 \item{facet_scales}{whether or not to fix scales on X & Y axes for all facet facet graphs. Can be \code{fixed} (default), \code{free}, \code{free_y} or \code{free_x} (for Y and X axis one at a time, respectively).}
 
 \item{fontsize}{parameter of \code{base_size} of fonts in \code{theme_classic}, default set to size 20.}
+
+\item{group_wid}{space between the factors along X-axis, i.e., dodge width. Default \code{group_wid = 0.8} (range 0-1), which can be set to 0 if you'd like the two plotted as \code{position = position_identity()}.}
 
 \item{symthick}{size (in 'pt' units) of outline of symbol lines (\code{stroke}), default = \code{fontsize}/22.}
 
@@ -102,7 +105,7 @@ Shapes are always plotted in black colour, and their opacity can be changed with
 
 Bars depict means using \code{\link[ggplot2]{stat_summary}} with \code{geom = "bar", fun = "mean"} , and bar width is set to 0.7 (cannot be changed). Error bar width can be changed with the \code{ewid} argument.
 
-Boxplot geometry uses \code{\link[ggplot2]{geom_boxplot}} with \code{position = position_dodge(width = 0.9), width = 0.6}. The thick line within the boxplot depicts the median, the box the IQR (interquantile range) and the whiskers show 1.5*IQR.
+Boxplot geometry uses \code{\link[ggplot2]{geom_boxplot}} with \code{position = position_dodge(width = 0.9), width = 0.6}. The thick line within the boxplot depicts the median, the box the IQR (interquartile range) and the whiskers show 1.5*IQR.
 
 In 4d versions, the two grouping variables (i.e. \code{xcol} and either \code{boxes} or \code{bars}) are passed to ggplot aesthetics through \code{group = interaction{ xcol, shapes}}.
 
