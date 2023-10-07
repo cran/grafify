@@ -1,6 +1,6 @@
 #' Plot quantile-quantile (QQ) graphs from data.
 #'
-#' This function takes a data table, a quantitative variable (`ycol`), and a categorical grouping variable (`group`), if available, and plots a QQ graph using \code{\link{ggplot2}[stat_qq]} and \code{\link{ggplot2}[stat_qq_line]}.
+#' This function takes a data table, a quantitative variable (`ycol`), and a categorical grouping variable (`group`), if available, and plots a QQ graph using \code{\link{ggplot2}[stat_qq]} and \code{\link{ggplot2}[stat_qq_line]}.  Alternatives are \code{\link{plot_histogram}}, or \code{\link{plot_qqline}}.
 #' 
 #' Note that the function requires the quantitative Y variable first, and a grouping variable as `group` if required. The graph plots sample quantiles on Y axis & theoretical quantiles on X axis. The X variable is mapped to the \code{fill} aesthetic in\code{stat_qq} and \code{colour} aesthetic for the \code{stat_qq_line}.
 #' 
@@ -32,13 +32,7 @@
 #' @examples
 #' plot_qqline(data = data_cholesterol, 
 #' ycol = Cholesterol, group = Treatment)
-#' 
-#' #with faceting
-#' plot_qqline(data = data_cholesterol, 
-#' ycol = Cholesterol, group = Treatment, 
-#' fontsize = 10)+facet_wrap("Treatment")
 #'
-
 plot_qqline <- function(data, ycol, group, facet, symsize = 3, s_alpha = 0.8, TextXAngle = 0, facet_scales = "fixed", fontsize = 20, symthick, linethick, ColPal = c("okabe_ito", "all_grafify", "bright",  "contrast",  "dark",  "fishy",  "kelly",  "light",  "muted",  "pale",  "r4",  "safe",  "vibrant"), ColSeq = TRUE, ColRev = FALSE, ...){
   ColPal <- match.arg(ColPal)
   if (missing(symthick)) {symthick = fontsize/22}
@@ -60,17 +54,16 @@ plot_qqline <- function(data, ycol, group, facet, symsize = 3, s_alpha = 0.8, Te
   } else {
     suppressWarnings(P <- ggplot2::ggplot(data, 
                          aes(sample = {{ ycol }},
-                             group = {{ group }}))+
+                             group = factor({{ group }})))+
       stat_qq_line(na.rm = T,
-                   aes(group = {{ group }}),
+                   aes(group = factor({{ group }})),
                    linewidth = linethick)+
       stat_qq(na.rm = T, 
               shape = 21, 
-              aes(fill = {{ group }}),
+              aes(fill = factor({{ group }})),
               size = symsize, 
               stroke = symthick,
               alpha = s_alpha)+
-      labs(fill = enquo(group))+
       theme_grafify(base_size = fontsize)+
       guides(x = guide_axis(angle = TextXAngle)))
     }
@@ -83,5 +76,7 @@ plot_qqline <- function(data, ycol, group, facet, symsize = 3, s_alpha = 0.8, Te
                         scales = facet_scales, 
                         ...)
   }
+  P <- P +
+    labs(fill = enquo(group))
   P
 }

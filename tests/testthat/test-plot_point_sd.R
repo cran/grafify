@@ -14,11 +14,15 @@ test_that("Check point-sd plots", {
   #match aesthetics in labels
   expect_match(as.character(rlang::quo_get_expr(db1$labels$x)), 
                "Genotype")
-  expect_match(as.character(db1$labels$y), 
+  expect_match(db1$labels$y, 
                "PI")
   expect_match(as.character(rlang::quo_get_expr(db1$labels$fill)), 
                "Genotype")
   #check text angle is passed on
-  expect_equal(db1$guides$x$angle, 45)
+  if (utils::packageVersion("ggplot2") <= "3.4.2") {
+    expect_equal(db1$guides$x$angle, 45)
+  } else {
+    expect_equal(db1$guides$x$angle, 45)
+  }
 })
 
