@@ -6,30 +6,30 @@
 #' When summary statistics (mean/median) are required, use \code{\link{plot_3d_scatterbar}}, \code{\link{plot_3d_scatterbox}} or \code{\link{plot_4d_scatterbox}}. 
 #'
 #' @param data a data table object, e.g. data.frame or tibble.
-#' @param xcol name of the column with quantitative X variable.
-#' @param ycol name of the column with quantitative Y variable.
+#' @param xcol name of the column (without quotes) with quantitative X variable.
+#' @param ycol name of the column (without quotes) with quantitative Y variable.
 #' @param NumGroup a numeric factor for `fill` aesthetic of data points.
-#' @param facet add another variable from the data table to create faceted graphs using \code{ggplot2}[facet_wrap].
+#' @param facet add another variable (without quotes) from the data table to create faceted graphs using \code{\link[ggplot2]{facet_wrap}}.
 #' @param Boxplot logical TRUE/FALSE to plot box and whiskers plot (default = FALSE).
-#' @param symsize size of symbols used by \code{geom_point}. Default set to 3.
+#' @param symsize size of symbols used by \code{\link[ggplot2]{geom_point}}. Default set to 3.
 #' @param s_alpha fractional opacity of symbols, default set to 0.8 (i.e, 80% opacity).
 #' @param TextXAngle orientation of text on X-axis; default 0 degrees. Change to 45 or 90 to remove overlapping text.
-#' @param LogYTrans transform Y axis into "log10" or "log2"
+#' @param LogYTrans transform Y axis into "log10" or "log2" (in quotes).
 #' @param LogXTrans transform X axis into "log10" or "log2"
-#' @param LogYBreaks argument for \code{ggplot2[scale_y_continuous]} for Y axis breaks on log scales, default is `waiver()`, or provide a vector of desired breaks.
-#' @param LogXBreaks argument for \code{ggplot2[scale_x_continuous]} for Y axis breaks on log scales, default is `waiver()`, or provide a vector of desired breaks.
-#' @param LogYLabels argument for \code{ggplot2[scale_y_continuous]} for Y axis labels on log scales, default is `waiver()`, or provide a vector of desired labels. 
-#' @param LogXLabels argument for \code{ggplot2[scale_x_continuous]} for Y axis labels on log scales, default is `waiver()`, or provide a vector of desired labels. 
+#' @param LogYBreaks argument for \code{\link[ggplot2]{scale_y_continuous}} for Y axis breaks on log scales, default is `waiver()`, or provide a vector of desired breaks.
+#' @param LogXBreaks argument for \code{\link[ggplot2]{scale_x_continuous}} for Y axis breaks on log scales, default is `waiver()`, or provide a vector of desired breaks.
+#' @param LogYLabels argument for \code{\link[ggplot2]{scale_y_continuous}} for Y axis labels on log scales, default is `waiver()`, or provide a vector of desired labels. 
+#' @param LogXLabels argument for \code{\link[ggplot2]{scale_x_continuous}} for Y axis labels on log scales, default is `waiver()`, or provide a vector of desired labels. 
 #' @param LogYLimits a vector of length two specifying the range (minimum and maximum) of the Y axis.
 #' @param LogXLimits a vector of length two specifying the range (minimum and maximum) of the X axis.
 #' @param facet_scales whether or not to fix scales on X & Y axes for all graphs. Can be `fixed` (default), `free`, `free_y` or `free_x` (for Y and X axis one at a time, respectively).
-#' @param fontsize parameter of \code{base_size} of fonts in \code{theme_classic}, default set to size 20.
+#' @param fontsize parameter of \code{base_size} of fonts in \code{\link[ggplot2]{theme_classic}}, default set to size 20.
 #' @param bwid width of boxplot (default = 0.3).
 #' @param b_alpha fractional opacity of boxes, (default = 0.3).
 #' @param l_alpha fractional opacity of lines joining boxes, (default = 0.8).
 #' @param symthick size (in 'pt' units) of outline of symbol lines (\code{stroke}), default = `fontsize`/22.
 #' @param bthick size (in 'pt' units) of outline of boxes, whisker and joining lines (\code{stroke}), default = `fontsize`/22.
-#' @param ColPal grafify colour palette to apply, default "okabe_ito"; see \code{\link{graf_palettes}} for available palettes.
+#' @param ColPal grafify colour palette to apply (in quotes), default "okabe_ito"; see \code{\link{graf_palettes}} for available palettes.
 #' @param ColRev whether to reverse order of colour within the selected palette, default F (FALSE); can be set to T (TRUE).
 #' @param ... any additional arguments to pass on.
 #'

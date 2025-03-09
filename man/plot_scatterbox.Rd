@@ -17,12 +17,13 @@ plot_scatterbox(
   TextXAngle = 0,
   LogYTrans,
   LogYBreaks = waiver(),
-  Ylabels = waiver(),
+  LogYLabels = waiver(),
   LogYLimits = NULL,
   facet_scales = "fixed",
   fontsize = 20,
   symthick,
   bthick,
+  Ylabels = waiver(),
   ColPal = c("okabe_ito", "all_grafify", "bright", "contrast", "dark", "fishy", "kelly",
     "light", "muted", "pale", "r4", "safe", "vibrant"),
   ColSeq = TRUE,
@@ -34,11 +35,11 @@ plot_scatterbox(
 \arguments{
 \item{data}{a data table object, e.g. data.frame or tibble.}
 
-\item{xcol}{name of the column to plot on X axis. This should be a categorical variable.}
+\item{xcol}{name of the column (without quotes) to plot on X axis. This should be a categorical variable.}
 
-\item{ycol}{name of the column to plot on quantitative Y axis. This should be a quantitative variable.}
+\item{ycol}{name of the column (without quotes) with the quantitative variable to plot on the Y axis. This should be a quantitative variable.}
 
-\item{facet}{add another variable from the data table to create faceted graphs using \code{ggplot2}\link{facet_wrap}.}
+\item{facet}{add another variable (without quotes) from the data table to create faceted graphs using \code{\link[ggplot2]{facet_wrap}}.}
 
 \item{symsize}{size of symbols, default set to 3.}
 
@@ -52,31 +53,33 @@ plot_scatterbox(
 
 \item{TextXAngle}{orientation of text on X-axis; default 0 degrees. Change to 45 or 90 to remove overlapping text.}
 
-\item{LogYTrans}{transform Y axis into "log10" or "log2"}
+\item{LogYTrans}{transform Y axis into "log10" or "log2" (in quotes).}
 
-\item{LogYBreaks}{argument for \code{ggplot2[scale_y_continuous]} for Y axis breaks on log scales, default is \code{waiver()}, or provide a vector of desired breaks.}
+\item{LogYBreaks}{argument for \code{\link[ggplot2]{scale_y_continuous}} for Y axis breaks on log scales, default is \code{waiver()}, or provide a vector of desired breaks.}
 
-\item{Ylabels}{argument for \code{ggplot2[scale_y_continuous]} for Y axis labels on log scales, default is \code{waiver()}, or provide a vector of desired labels.}
+\item{LogYLabels}{argument for \code{\link[ggplot2]{scale_y_continuous}} for Y axis labels on log scales, default is \code{waiver()}, or provide a vector of desired labels.}
 
 \item{LogYLimits}{a vector of length two specifying the range (minimum and maximum) of the Y axis.}
 
 \item{facet_scales}{whether or not to fix scales on X & Y axes for all graphs. Can be \code{fixed} (default), \code{free}, \code{free_y} or \code{free_x} (for Y and X axis one at a time, respectively).}
 
-\item{fontsize}{parameter of \code{base_size} of fonts in \code{theme_classic}, default set to size 20.}
+\item{fontsize}{parameter of \code{base_size} of fonts in \code{\link[ggplot2]{theme_classic}}, default set to size 20.}
 
 \item{symthick}{size (in 'pt' units) of outline of symbol lines (\code{stroke}), default = \code{fontsize}/22.}
 
 \item{bthick}{thickness (in 'pt' units) of boxplot lines; default = \code{fontsize}/22.}
 
-\item{ColPal}{grafify colour palette to apply, default "okabe_ito"; see \code{\link{graf_palettes}} for available palettes.}
+\item{Ylabels}{deprecated, use \code{LogYLabels} instead.}
+
+\item{ColPal}{grafify colour palette to apply (in quotes), default "okabe_ito"; see \code{\link{graf_palettes}} for available palettes.}
 
 \item{ColSeq}{logical TRUE or FALSE. Default TRUE for sequential colours from chosen palette. Set to FALSE for distant colours, which will be applied using  \code{scale_fill_grafify2}.}
 
 \item{ColRev}{whether to reverse order of colour within the selected palette, default F (FALSE); can be set to T (TRUE).}
 
-\item{SingleColour}{a colour hexcode (starting with #), a number between 1-154, or names of colours from \code{grafify} or base R palettes to fill along X-axis aesthetic. Accepts any colour other than "black"; use \code{grey_lin11}, which is almost black.}
+\item{SingleColour}{a colour hexcode (starting with #, e.g., "#E69F00"), a number between 1-154, or names of colours from \code{grafify} or base R palettes to fill along X-axis aesthetic. Accepts any colour other than "black"; use \code{grey_lin11}, which is almost black.}
 
-\item{...}{any additional arguments to pass to \code{ggplot2}\link{geom_boxplot}.}
+\item{...}{any additional arguments to pass to \code{\link[ggplot2]{geom_boxplot}}.}
 }
 \value{
 This function returns a \code{ggplot2} object of class "gg" and "ggplot".

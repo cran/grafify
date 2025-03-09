@@ -7,6 +7,31 @@ output:
 
 Full reference to all functions available at [`grafify` GitHub pages](https://ashenoy-cmbi.github.io/grafify/index.html). 
 
+# grafify v5.0.0
+
+## Major updates
+
+This version has major updates to linear mixed effects models functions (`mixed_model`, `mixed_anova`, `mixed_model_slopes`, `mixed_anova_slopes`). The other major updates are to `plot_density` and `plot_histogram`, which can now plot probability density, counts or normalised counts (only latter two options for histograms). Most old code should still work, but care is needed if arguments are not explicitly called. Changes as follows:
+
+1. Updates to `mixed_model`, `mixed_anova`, `mixed_model_slopes`, `mixed_anova_slopes`:
+    
+    a. All functions now have a new argument `AvgRF`, which is set to TRUE by default. This means that values of the response variable (`Y_value`) are averaged before a linear mixed effects model is fitted. This avoids pseudoreplication if there are multiple 'technical replicates' within levels of the `Random_Factor`. For behaviour like before (v4.0.1 or lower), set `AvgRF = FALSE`.
+    b. The `Formula` argument allows the user to directly provide a formula to lmer(), which may be useful in more complex scenarios (e.g., nested designs). This argument is available in `mixed_model` and `mixed_anova` functions.
+    c. The following transformations can be called directly on x (where x is a numeric variable passed on to `Y_value` or `Fixed_Factor`: log(x), log(x + c), logit(x), log(x/100), sqrt() or exponents (e.g., (c)^2).
+
+1. Updates to arguments in `plot_density` and `plot_histogram`:
+  
+    a. both functions have a new argument `PlotType` to choose a type of data transformation, i.e., use `ggplot2` defaults or plot counts or normalised counts. For `plot_density`, this argument can be `Density` (default), which plots the smooth probability density curve, `Counts` or `Normalised counts`. For `plot_histogram`, the default for this argument is `Counts`, which can be changed to `Normalised counts`. This is achieved by passing `y = after_stat(count)` or `y = after_stat(count/max(count))` to `geom_density` or `geom_histogram`.
+    b. both functions also can do "log10" and "log2" along the X-axis (for plotting on semi-log plots). For consistency with other `plot_` functions in `grafify`, these arguments are `LogYTrans`, `LogYBreaks`, `LogYLabels` and `LogYLimits`.
+    c. a `SingleColour` argument has been added to change colours when a grouping variable is missing, i.e., when the argument `group` is not provided with a value. If a value is provided, however, `SingleColour` is ignored and the `ColPal` value is applied.
+      
+## Minor updates
+
+2. In a couple of `plot_..` functions, the `LogYLabels` argument was called `Ylabels`, which has now been deprecated for consistency (old code will still work).
+3. Since `ggplot2` v3.5, the `discrete_scale()` has been updated and an argument (`scale_name`) has been dropped. The `scale_fill_grafify` and `scale_colour_grafify` functions have been accordingly updated.
+4. Updated documentation and corrected links to other packages and DOIs.
+5. In plots that use `geom_violin` (i.e., `plot_scatterviolin`, `plot_3d_scatterviolin` and `plot_4d_scatterviolin`), `drop = FALSE` has been added to avoid throwing up errors. Be careful if you have fewer than 2 data points.
+
 # grafify v4.0.1
 
 This is a minor update to fix tests that were failing after an update to `ggplot2` to version 3.5.0. 
@@ -112,7 +137,7 @@ The main motivation behind this update was to simplify the package by reducing t
 
 1. A new `SingleColour` argument has been added to two-variables `plot_` functions to generate graphs with a single colour along the X-axis aesthetic. This means the 8 `plot_..._sc` functions introduced in v1.5.0 are deprecated, but this feature is still retained in existing `plot_` functions. This option also added to `plot_3d_` functions for plots of one-way ANOVA data.
 
-2. Four new colourblind-friendly categorical colour schemes (chosen from [cols4all](https://github.com/mtennekes/cols4all) package):
+2. Four new colourblind-friendly categorical colour schemes (chosen from [cols4all](https://github.com/cols4all/cols4all-R) package):
 
 - `fishy`, `kelly`, `r4`, `safe` 
 

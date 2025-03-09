@@ -21,7 +21,7 @@ plot_qqmodel(
 
 \item{s_alpha}{fractional opacity of symbols, default set to 0.8 (i.e., 80\% opacity).}
 
-\item{fontsize}{parameter of \code{base_size} of fonts in \code{theme_classic}, default set to size 20.}
+\item{fontsize}{parameter of \code{base_size} of fonts in \code{\link[ggplot2]{theme_classic}}, default set to size 20.}
 
 \item{symthick}{thickness of symbol border, default set to \code{fontsize}/22.}
 
@@ -38,7 +38,7 @@ This function takes a linear model (simple or mixed effects) and plots a QQ grap
 \details{
 For generalised additive models fit with \code{mgcv}, scaled Pearson residuals are plotted.
 
-The function uses \code{\link{ggplot2}[geom_qq]} and \code{\link{ggplot2}[geom_qq_line]} geometries. Symbols receive "ok_orange" colour by default.
+The function uses \code{\link[ggplot2]{geom_qq}} and \code{\link[ggplot2]{geom_qq_line}} geometries. Symbols receive "ok_orange" colour by default.
 }
 \examples{
 #Basic usage

@@ -26,11 +26,11 @@ plot_qqline(
 \arguments{
 \item{data}{a data table e.g. data.frame or tibble.}
 
-\item{ycol}{name of the column containing the quantitative variable whose distribution is to be plotted.}
+\item{ycol}{name of the column (without quotes) with the quantitative variable whose distribution is to be plotted.}
 
 \item{group}{name of the column containing a categorical grouping variable.}
 
-\item{facet}{add another variable from the data table to create faceted graphs using \code{ggplot2}\link{facet_wrap}.}
+\item{facet}{add another variable (without quotes) from the data table to create faceted graphs using \code{\link[ggplot2]{facet_wrap}}.}
 
 \item{symsize}{size of symbols, default set to 3.}
 
@@ -40,28 +40,28 @@ plot_qqline(
 
 \item{facet_scales}{whether or not to fix scales on X & Y axes for all facet facet graphs. Can be \code{fixed} (default), \code{free}, \code{free_y} or \code{free_x} (for Y and X axis one at a time, respectively).}
 
-\item{fontsize}{parameter of \code{base_size} of fonts in \code{theme_classic}, default set to size 20.}
+\item{fontsize}{parameter of \code{base_size} of fonts in \code{\link[ggplot2]{theme_classic}}, default set to size 20.}
 
 \item{symthick}{thickness of symbol border, default set to \code{fontsize}/22.}
 
 \item{linethick}{thickness of lines, default set to \code{fontsize}/22.}
 
-\item{ColPal}{grafify colour palette to apply, default "okabe_ito"; see \code{\link{graf_palettes}} for available palettes.}
+\item{ColPal}{grafify colour palette to apply (in quotes), default "okabe_ito"; see \code{\link{graf_palettes}} for available palettes.}
 
 \item{ColSeq}{logical TRUE or FALSE. Default TRUE for sequential colours from chosen palette. Set to FALSE for distant colours, which will be applied using  \code{scale_fill_grafify2}.}
 
 \item{ColRev}{whether to reverse order of colour within the selected palette, default F (FALSE); can be set to T (TRUE).}
 
-\item{...}{any additional arguments to pass to \code{\link{ggplot2}[geom_qq]} or \code{\link{ggplot2}[geom_qq_line]}.}
+\item{...}{any additional arguments to pass to \code{\link[ggplot2]{geom_qq}} or \code{\link[ggplot2]{geom_qq_line}}.}
 }
 \value{
 This function returns a \code{ggplot2} object of class "gg" and "ggplot".
 }
 \description{
-This function takes a data table, a quantitative variable (\code{ycol}), and a categorical grouping variable (\code{group}), if available, and plots a QQ graph using \code{\link{ggplot2}[stat_qq]} and \code{\link{ggplot2}[stat_qq_line]}.  Alternatives are \code{\link{plot_histogram}}, or \code{\link{plot_qqline}}.
+This function takes a data table, a quantitative variable (\code{ycol}), and a categorical grouping variable (\code{group}), if available, and plots a QQ graph using \code{\link[ggplot2]{stat_qq}} and \code{\link[ggplot2]{stat_qq_line}}.  Alternatives are \code{\link{plot_histogram}}, or \code{\link{plot_qqline}}.
 }
 \details{
-Note that the function requires the quantitative Y variable first, and a grouping variable as \code{group} if required. The graph plots sample quantiles on Y axis & theoretical quantiles on X axis. The X variable is mapped to the \code{fill} aesthetic in\code{stat_qq} and \code{colour} aesthetic for the \code{stat_qq_line}.
+Note that the function requires the quantitative Y variable first, and a grouping variable as \code{group} if required. The graph plots sample quantiles on Y axis & theoretical quantiles on X axis. The X variable is mapped to the \code{fill} aesthetic in\code{\link[ggplot2]{stat_qq}} and \code{colour} aesthetic for the \code{\link[ggplot2]{stat_qq_line}}.
 
 Colours can be changed using \code{ColPal}, \code{ColRev} or \code{ColSeq} arguments. Colours available can be seen quickly with \code{\link{plot_grafify_palette}}. When only one level is present within \code{group}, symbols will receive "ok_orange" colour.
 \code{ColPal} can be one of the following: "okabe_ito", "dark", "light", "bright", "pale", "vibrant,  "muted" or "contrast".

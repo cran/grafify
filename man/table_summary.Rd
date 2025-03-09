@@ -9,15 +9,15 @@ table_summary(data, Ycol, ByGroup)
 \arguments{
 \item{data}{name of the data table.}
 
-\item{Ycol}{name of one column (in quotes) or a vector of column names containing the numerical variable to be summarised.}
+\item{Ycol}{name of one column (in quotes) or a vector of column names (e.g., c("Y1", "Y2")) containing the numerical variable to be summarised.}
 
-\item{ByGroup}{name of one column (in quotes) or a vector of column names containing the grouping factors}
+\item{ByGroup}{name of one column (in quotes) or a vector of column names (e.g., c("A", "B")) containing the grouping factors}
 }
 \value{
 this function takes in a data.frame or tibble and returns a data.frame or tibble.
 }
 \description{
-This is a wrapper around \code{\link{aggregate}} function in base R to obtain mean, median, standard deviation and count for quantitative variable(s) grouped by one or more factors. More than one column containing of quantitative variables can be passed on, and summaries for each is provided with column names with a \code{.}.
+This is a wrapper around \code{\link[stats]{aggregate}} function in base R to obtain mean, median, standard deviation and count for quantitative variable(s) grouped by one or more factors. More than one column containing of quantitative variables can be passed on, and summaries for each is provided with column names with a \code{.}.
 }
 \examples{
 table_summary(Ycol = "cty",

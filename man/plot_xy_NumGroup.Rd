@@ -37,33 +37,33 @@ plot_xy_NumGroup(
 \arguments{
 \item{data}{a data table object, e.g. data.frame or tibble.}
 
-\item{xcol}{name of the column with quantitative X variable.}
+\item{xcol}{name of the column (without quotes) with quantitative X variable.}
 
-\item{ycol}{name of the column with quantitative Y variable.}
+\item{ycol}{name of the column (without quotes) with quantitative Y variable.}
 
 \item{NumGroup}{a numeric factor for \code{fill} aesthetic of data points.}
 
-\item{facet}{add another variable from the data table to create faceted graphs using \code{ggplot2}\link{facet_wrap}.}
+\item{facet}{add another variable (without quotes) from the data table to create faceted graphs using \code{\link[ggplot2]{facet_wrap}}.}
 
 \item{Boxplot}{logical TRUE/FALSE to plot box and whiskers plot (default = FALSE).}
 
-\item{symsize}{size of symbols used by \code{geom_point}. Default set to 3.}
+\item{symsize}{size of symbols used by \code{\link[ggplot2]{geom_point}}. Default set to 3.}
 
 \item{s_alpha}{fractional opacity of symbols, default set to 0.8 (i.e, 80\% opacity).}
 
 \item{TextXAngle}{orientation of text on X-axis; default 0 degrees. Change to 45 or 90 to remove overlapping text.}
 
-\item{LogYTrans}{transform Y axis into "log10" or "log2"}
+\item{LogYTrans}{transform Y axis into "log10" or "log2" (in quotes).}
 
 \item{LogXTrans}{transform X axis into "log10" or "log2"}
 
-\item{LogYBreaks}{argument for \code{ggplot2[scale_y_continuous]} for Y axis breaks on log scales, default is \code{waiver()}, or provide a vector of desired breaks.}
+\item{LogYBreaks}{argument for \code{\link[ggplot2]{scale_y_continuous}} for Y axis breaks on log scales, default is \code{waiver()}, or provide a vector of desired breaks.}
 
-\item{LogXBreaks}{argument for \code{ggplot2[scale_x_continuous]} for Y axis breaks on log scales, default is \code{waiver()}, or provide a vector of desired breaks.}
+\item{LogXBreaks}{argument for \code{\link[ggplot2]{scale_x_continuous}} for Y axis breaks on log scales, default is \code{waiver()}, or provide a vector of desired breaks.}
 
-\item{LogYLabels}{argument for \code{ggplot2[scale_y_continuous]} for Y axis labels on log scales, default is \code{waiver()}, or provide a vector of desired labels.}
+\item{LogYLabels}{argument for \code{\link[ggplot2]{scale_y_continuous}} for Y axis labels on log scales, default is \code{waiver()}, or provide a vector of desired labels.}
 
-\item{LogXLabels}{argument for \code{ggplot2[scale_x_continuous]} for Y axis labels on log scales, default is \code{waiver()}, or provide a vector of desired labels.}
+\item{LogXLabels}{argument for \code{\link[ggplot2]{scale_x_continuous}} for Y axis labels on log scales, default is \code{waiver()}, or provide a vector of desired labels.}
 
 \item{LogYLimits}{a vector of length two specifying the range (minimum and maximum) of the Y axis.}
 
@@ -71,7 +71,7 @@ plot_xy_NumGroup(
 
 \item{facet_scales}{whether or not to fix scales on X & Y axes for all graphs. Can be \code{fixed} (default), \code{free}, \code{free_y} or \code{free_x} (for Y and X axis one at a time, respectively).}
 
-\item{fontsize}{parameter of \code{base_size} of fonts in \code{theme_classic}, default set to size 20.}
+\item{fontsize}{parameter of \code{base_size} of fonts in \code{\link[ggplot2]{theme_classic}}, default set to size 20.}
 
 \item{bwid}{width of boxplot (default = 0.3).}
 
@@ -83,7 +83,7 @@ plot_xy_NumGroup(
 
 \item{bthick}{size (in 'pt' units) of outline of boxes, whisker and joining lines (\code{stroke}), default = \code{fontsize}/22.}
 
-\item{ColPal}{grafify colour palette to apply, default "okabe_ito"; see \code{\link{graf_palettes}} for available palettes.}
+\item{ColPal}{grafify colour palette to apply (in quotes), default "okabe_ito"; see \code{\link{graf_palettes}} for available palettes.}
 
 \item{ColRev}{whether to reverse order of colour within the selected palette, default F (FALSE); can be set to T (TRUE).}
 

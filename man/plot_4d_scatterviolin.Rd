@@ -42,15 +42,15 @@ plot_4d_scatterviolin(
 \arguments{
 \item{data}{a data table, e.g. data.frame or tibble.}
 
-\item{xcol}{name of the column with the categorical factor to plot on X axis. If column is numeric, enter as \code{factor(col)}.}
+\item{xcol}{name of the column (without quotes) with the categorical factor to plot on X axis. If column is numeric, enter as \code{factor(col)}.}
 
-\item{ycol}{name of the column to plot on quantitative variable on the Y axis.}
+\item{ycol}{name of the column (without quotes) with the quantitative variable to plot on the Y axis.}
 
 \item{boxes}{name of the column containing grouping within the factor plotted on X axis. Can be categorical or numeric X. If your table has numeric X and you want to plot as factor, enter \code{xcol = factor(name of colum)}.}
 
-\item{shapes}{name of the column that contains matched observations (e.g. subject IDs, experiment number) or another variable to pass on to symbol shapes. If not provided, the shapes for all groups is the same.}
+\item{shapes}{name of the column (without quotes) that contains matched observations (e.g. subject IDs, experiment number) or another variable to pass on to symbol shapes. If not provided, the shapes for all groups is the same.}
 
-\item{facet}{add another variable from the data table to create faceted graphs using \code{ggplot2}\link{facet_wrap}.}
+\item{facet}{add another variable (without quotes) from the data table to create faceted graphs using \code{\link[ggplot2]{facet_wrap}}.}
 
 \item{symsize}{size of symbols, default set to 3.}
 
@@ -72,17 +72,17 @@ plot_4d_scatterviolin(
 
 \item{trim}{set whether tips of violin plot should be trimmed at high/low data. Default \code{trim = T}, can be changed to F.}
 
-\item{LogYTrans}{transform Y axis into "log10" or "log2"}
+\item{LogYTrans}{transform Y axis into "log10" or "log2" (in quotes).}
 
-\item{LogYBreaks}{argument for \code{ggplot2[scale_y_continuous]} for Y axis breaks on log scales, default is \code{waiver()}, or provide a vector of desired breaks.}
+\item{LogYBreaks}{argument for \code{\link[ggplot2]{scale_y_continuous}} for Y axis breaks on log scales, default is \code{waiver()}, or provide a vector of desired breaks.}
 
-\item{LogYLabels}{argument for \code{ggplot2[scale_y_continuous]} for Y axis labels on log scales, default is \code{waiver()}, or provide a vector of desired labels.}
+\item{LogYLabels}{argument for \code{\link[ggplot2]{scale_y_continuous}} for Y axis labels on log scales, default is \code{waiver()}, or provide a vector of desired labels.}
 
 \item{LogYLimits}{a vector of length two specifying the range (minimum and maximum) of the Y axis.}
 
 \item{facet_scales}{whether or not to fix scales on X & Y axes for all facet facet graphs. Can be \code{fixed} (default), \code{free}, \code{free_y} or \code{free_x} (for Y and X axis one at a time, respectively).}
 
-\item{fontsize}{parameter of \code{base_size} of fonts in \code{theme_classic}, default set to size 20.}
+\item{fontsize}{parameter of \code{base_size} of fonts in \code{\link[ggplot2]{theme_classic}}, default set to size 20.}
 
 \item{group_wid}{space between the factors along X-axis, i.e., dodge width. Default \code{group_wid = 0.8} (range 0-1), which can be set to 0 if you'd like the two plotted as \code{position = position_identity()}.}
 
@@ -94,13 +94,13 @@ plot_4d_scatterviolin(
 
 \item{bvthick}{thickness (in 'pt' units) of both violins and boxplots; default = \code{fontsize}/22.}
 
-\item{ColPal}{grafify colour palette to apply, default "okabe_ito"; see \code{\link{graf_palettes}} for available palettes.}
+\item{ColPal}{grafify colour palette to apply (in quotes), default "okabe_ito"; see \code{\link{graf_palettes}} for available palettes.}
 
 \item{ColSeq}{logical TRUE or FALSE. Default TRUE for sequential colours from chosen palette. Set to FALSE for distant colours, which will be applied using  \code{scale_fill_grafify2}.}
 
 \item{ColRev}{whether to reverse order of colour within the selected palette, default F (FALSE); can be set to T (TRUE).}
 
-\item{...}{any additional arguments to pass to \code{ggplot2}\link{geom_boxplot} or \code{ggplot2}\link{geom_violin}.}
+\item{...}{any additional arguments to pass to \code{\link[ggplot2]{geom_boxplot}} or \code{\link[ggplot2]{geom_violin}}.}
 }
 \value{
 This function returns a \code{ggplot2} object of class "gg" and "ggplot".

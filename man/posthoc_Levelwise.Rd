@@ -9,9 +9,9 @@ posthoc_Levelwise(Model, Fixed_Factor, P_Adj = "fdr", Factor, ...)
 \arguments{
 \item{Model}{a model object fit using \code{\link{simple_model}} or \code{\link{mixed_model}} or related.}
 
-\item{Fixed_Factor}{one or  more categorical variables, provided as a vector (see Examples), whose levels you wish to compare pairwise. Names of Fixed_Factor should match Fixed_Factor used to fit the model. When more than one factor is provided e.g. \code{Fixed_factor = c("A", "B")}, this function passes this on as \code{specs = A|B} (note the vertical | between the two Fixed_Factor) to \code{\link[emmeans]{emmeans}} to produce comparisons between each level A with each other listed separately at each level of B.}
+\item{Fixed_Factor}{one or  more categorical variables, provided as a vector (e.g., c("A", "B")), whose levels you wish to compare pairwise. Names of Fixed_Factor should match Fixed_Factor used to fit the model. When more than one factor is provided e.g. \code{Fixed_factor = c("A", "B")}, this function passes this on as \code{specs = A|B} (note the vertical | between the two Fixed_Factor) to \code{\link[emmeans]{emmeans}} to produce comparisons between each level A with each other listed separately at each level of B.}
 
-\item{P_Adj}{method for correcting P values for multiple comparisons. Default is set to false discovery rate ("fdr"), can be changed to "none", "tukey", "bonferroni", "sidak". See Interaction analysis in emmeans in the \href{https://CRAN.R-project.org/package=emmeans}{manual} for \code{emmeans}.}
+\item{P_Adj}{method for correcting P values for multiple comparisons. Default is set to false discovery rate ("fdr"), can be changed to "none", "tukey", "bonferroni", "sidak" (in quotes). See Interaction analysis in emmeans in the \href{https://CRAN.R-project.org/package=emmeans}{manual} for \code{emmeans}.}
 
 \item{Factor}{old argument name for \code{Fixed_Factor}; retained for backward compatibility.}
 
@@ -26,7 +26,7 @@ This function is a wrapper based on \code{\link[emmeans]{emmeans}}, and needs a 
 \details{
 The function will generate \href{https://CRAN.R-project.org/package=emmeans}{level-wise comparisons} (as described in Comparisons and contrasts in emmeans), i.e. comparison between of every level of one factor separately at each level of the other factor.
 By default, P values are corrected by the FDR method (which can be changed). If the model was fit by transforming the quantitative response variable using "log", "logit", "sqrt" etc., results will still be on the original scale, i.e. \code{type = "response"} is the default; data will be back-transformed (check results to confirm this), and for log or logit see Transformations and link functions in emmeans, \href{https://CRAN.R-project.org/package=emmeans}{ratios will be compared}.
-The first part of the \code{\link{emmeans}} results has the estimated marginal means, SE and CI (\code{$emmeans}), which are generated from the fitted model, and \strong{not} the original data table. The second part has the results of the comparisons (\code{$contrasts}).
+The first part of the \code{\link[emmeans]{emmeans}} results has the estimated marginal means, SE and CI (\code{$emmeans}), which are generated from the fitted model, and \strong{not} the original data table. The second part has the results of the comparisons (\code{$contrasts}).
 }
 \examples{
 #make a linear model first
@@ -35,7 +35,7 @@ Y_value =  "Cholesterol",
 Fixed_Factor = c("Hospital", "Treatment"),
 Random_Factor =  "Subject") 
 
-#note quotes used only for fixed Fixed_Factor
+#note Fixed_Factor needs a vector or variable in quotes
 #to get comparisons between different hospitals separately for each level of Treatment
 posthoc_Levelwise(Model = CholMod, 
 Fixed_Factor = c("Hospital", "Treatment"))

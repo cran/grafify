@@ -9,25 +9,25 @@ simple_anova(data, Y_value, Fixed_Factor, ...)
 \arguments{
 \item{data}{a data table object, e.g. data.frame or tibble.}
 
-\item{Y_value}{name of column containing quantitative (dependent) variable, provided within "quotes".}
+\item{Y_value}{name of column containing quantitative (dependent) variable, provided within "quotes". The following transformations are permitted: "log(Y_value)", "log(Y_value + c)" where c a positive number, "logit(Y_value)" or "logit(Y_value/100)" which may be useful when \code{Y_value} are percentages  (note quotes outside the log or logit calls); "sqrt(Y_value)" or "(Y_value)^2" should also work. During posthoc-comparisons, log and logit transformations will be back-transformed to the original scale. Other transformations, e.g., "sqrt(Y_value)" will not be back-transformed. Check out the \code{\link[emmeans]{regrid}} and \code{\link[emmeans]{ref_grid}} for details if you need back-transformation to the response scale.}
 
-\item{Fixed_Factor}{name(s) of categorical fixed factors (independent variables) provided as a vector if more than one or within "quotes".}
+\item{Fixed_Factor}{name(s) of categorical fixed factors (independent variables) provided within quotes (e.g., "A") or as a vector if more than one (e.g., c("A", "B"). If a numeric variable(s) is used, transformations similar to \code{Y_value} are permitted.}
 
-\item{...}{any additional argument to pass on to \code{\link{lm}} if required.}
+\item{...}{any additional argument to pass on to \code{\link[stats]{lm}} if required.}
 }
 \value{
 ANOVA table of class "anova" and "data.frame".
 }
 \description{
-One of two functions for simple ANOVA tables and linear models without random effects, which use \code{\link{lm}} to fit a linear models.
+One of two functions for simple ANOVA tables and linear models without random effects, which use \code{\link[stats]{lm}} to fit a linear models.
 \enumerate{
 \item \code{link{simple_anova}}
 \item \code{link{simple_model}}
 }
 }
 \details{
-Update in v0.2.1: This function uses \code{\link{lm}} to fit a linear model to data, passes it on to \code{\link[car]{Anova}}, and outputs the ANOVA table with type II sum of squares with F statistics and \emph{P} values.
-(Previous versions produced type I sum of squares using \code{\link{anova}} call.)
+Update in v0.2.1: This function uses \code{\link[stats]{lm}} to fit a linear model to data, passes it on to \code{\link[car]{Anova}}, and outputs the ANOVA table with type II sum of squares with F statistics and \emph{P} values.
+(Previous versions produced type I sum of squares using \code{\link[stats]{anova}} call.)
 
 It requires a data table, one quantitative dependent variable and one or more independent variables. If your experiment design has random factors, use the related function \code{\link{mixed_anova}}.
 
