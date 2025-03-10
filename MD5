@@ -1,4 +1,4 @@
-e8751e29f80f67838944e68ec48dac82 *DESCRIPTION
+e626d69d85bfb2650d16de7b65a04b3c *DESCRIPTION
 05c8f3cd04b73ff2a80993f68c26b58f *NAMESPACE
 65419f6ed028469c371e6a66ef0d0840 *NEWS.md
 864c8cd43e4b2ccb2272ed92c088dd2d *R/data.R
@@ -147,9 +147,9 @@ b70c5137e753a7028cf2a238c4984663 *man/posthoc_Trends_Pairwise.Rd
 fe2f0439a3805ca531cbcf0083760ab7 *tests/testthat/helper-guide-angle.R
 01027e2b6983690e49cc01c25602c840 *tests/testthat/test-make_1way_data.R
 df1951ed8cbe17a48eca2cb241e35e37 *tests/testthat/test-make_2way_data.R
-3fdb712e6916affc009560d1579c5e88 *tests/testthat/test-mixed_anova.R
-5927bb057a742d83fab9fa6e1c05fe20 *tests/testthat/test-mixed_anova_slopes.R
-34842f47b674d6f121ccfeeccdcfa534 *tests/testthat/test-mixed_model.R
+30d113c11e71a4ba07cc7de213c3982a *tests/testthat/test-mixed_anova.R
+74f5d31cb648cacea7e3a8faa88f6c72 *tests/testthat/test-mixed_anova_slopes.R
+c88ae59108128a031973598e222ce460 *tests/testthat/test-mixed_model.R
 d63297ec0f099c33b060e2858afda4fc *tests/testthat/test-plot_3d_scatterbar.R
 c0b4c7d251886b2ca3f31e5c0d7d9286 *tests/testthat/test-plot_3d_scatterbox.R
 1f2eb1b3c6cee84d34d8386c979388dc *tests/testthat/test-plot_3d_scatterviolin.R
