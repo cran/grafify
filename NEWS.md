@@ -7,6 +7,22 @@ output:
 
 Full reference to all functions available at [`grafify` GitHub pages](https://ashenoy-cmbi.github.io/grafify/index.html). 
 
+# grafify v5.1.0 
+
+This is an update with a new function `plot_xy_Group`, therefore the number increases to 5.1.0. 
+
+## Major update
+
+1. New function `plot_xy_Group` that is for data with numeric variables on both X- and Y-axes and a grouping variable, which can be either categorical or numeric. This function could replace `plot_xy_CatGroup` and `plot_xy_NumGroup` in future releases. The new feature is that now data can be summarised as mean and SD/SEM/CI95 or box and whiskers. A line joining the central value (mean or median) can also be added. Alternatively, a fitted smooth "linear" or "loess" line can be added to data. This is added via  `stat_smooth` with `lm` or `loess` can also be added. 
+
+## Minor update
+
+1. Fixed tests to be compatible with latest release of `ggplot2`.
+
+# grafify v5.0.1
+
+This is a minor update with fixes to unit tests for M1Mac.
+
 # grafify v5.0.0
 
 ## Major updates
@@ -272,7 +288,7 @@ Bug fixes in `mixed_model` and `simple_model` which now correctly lists the data
 
 1. the main difference from v0.1.0 is that all `plot_` functions apply the `all_grafify` colour scheme by default (see `plot_` vignettes on how to change colours)
 2. two new types of graphs are possible with two quantitative X-Y plots with a third variable that is either numeric (`plot_xy_NumGroup`) or categorical (`plot_xy_CatGroup`).
-3. there are two new continuous colour schemes (`scale_fill_grafify_c` and `scale_colour_grafify_c`), based on [Paul Tol's variant](https://personal.sron.nl/~pault/#sec:sequential) of YlOrBl scheme.
+3. there are two new continuous colour schemes (`scale_fill_grafify_c` and `scale_colour_grafify_c`), based on Paul Tol's variant (also see `khroma` [package](https://CRAN.R-project.org/package=khroma)) of YlOrBl scheme.
 
 ### Minor changes
 
